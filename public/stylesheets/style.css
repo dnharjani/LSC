@@ -1,0 +1,16 @@
+ul{
+    list-style: none;
+}
+
+a{
+    cursor: pointer;
+}
+
+#posts li{
+    padding: 30px;
+    margin-bottom: 2px;
+}
+
+#posts .summary{
+    padding-top: 10px;
+}

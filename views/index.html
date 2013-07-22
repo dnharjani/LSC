@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/normalize.css" />
+        <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
+        <link rel="stylesheet" href="/stylesheets/bootstrap-responsive.css" />
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+        <link rel="stylesheet" href="/stylesheets/font-awesome.min.css" />
+    </head>
+    <body class="container" >
+        <div id="posts-container">
+            <ul id="posts" data-bind="foreach : redditPosts">
+                <li>
+                    <a data-bind="text: title, click: $parent.toggleSummary"></a>
+                    <div class="summary" data-bind="visible: showSummary, html: selftext"></div>
+                </li>
+            </ul>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+        <script type="text/javascript" src="/javascripts/bindings.js"></script>
+    </body>
+</html>
