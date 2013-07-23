@@ -1,5 +1,10 @@
+.container{
+    padding: 0;
+}
+
 ul{
     list-style: none;
+    margin: 0;
 }
 
 a{
@@ -21,9 +26,10 @@ a:hover {text-decoration: none}
     padding: 30px 10px;
     margin-bottom: 2px;
     box-shadow: 0 8px 6px -6px black;
+    border-bottom: 1px solid black;
 }
 
-#posts .post{
+.post-container .post{
     display: block;
     padding-bottom: 15px;
 }
@@ -43,6 +49,18 @@ a:hover {text-decoration: none}
     margin-left:1px;
 }
 
-#posts .summary{
-    padding-top: 10px;
+.post-container .summary{
+    padding-top: 25px;
+}
+
+li.odd{
+    background-color: #f7f7f9;
+}
+
+.post-container .in-list{
+    padding-top: 20px;
+}
+
+.green{
+    color: green;
 }

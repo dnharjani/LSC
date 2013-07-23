@@ -10,7 +10,7 @@
     <body class="container" >
         <div id="posts-container">
             <ul id="posts" data-bind="foreach : redditPosts">
-                <li class="post-container">
+                <li data-bind="attr: {class : $parent.getRowClass($index)}">
                     <a class="post" data-bind="click: $parent.toggleSummary">
                         <i class="icon-play"></i>
                         <span class="post-title" data-bind="text: title"></span>
@@ -21,9 +21,18 @@
                     </a>
                     <a class="reddit-button btn btn-small" data-bind="attr: {href: permalink}" target="_blank">
                         <img src="http://www.redditstatic.com/spreddit5.gif">
-                        <span>Reddit</span>
                     </a>
-                    <div class="summary" data-bind="visible: showSummary"></div>
+                    <a class="btn btn-small" data-bind="click : $parent.findIns">
+                        <i class="icon-check"></i>
+                        <span> Who's in?</span>
+                    </a>
+                    <div class="summary" data-bind="slideVisible: showSummary"></div>
+                    <div class="in-list" data-bind="foreach : ins">
+                        <a class="btn btn-small" >
+                            <i class="icon-male green"></i>
+                            <span data-bind="text : author"></span>
+                        </a>
+                    </div>
                 </li>
             </ul>
         </div>

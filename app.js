@@ -87,8 +87,26 @@ reddit.posts = function(req, res){
     });
 };
 
+reddit.comments = function(req, res){
+    http.get('http://api.reddit.com/comments/'+req.params.post_id, function(response){
+        var data = '';
+        response.on('data', function(d){
+            data += d;
+        });
+
+        response.on('end', function(){
+            res.json(JSON.parse(data));
+        });
+    }).on('error', function(e){
+        console.log('Error ' + e.message);
+    })
+};
+
+
+
 app.get('/', routes.index);
 app.get('/posts', reddit.posts);
+app.get('/comments/:post_id', reddit.comments);
 
 app.listen(process.env.PORT || 3100);
 
