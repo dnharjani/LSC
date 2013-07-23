@@ -9,7 +9,6 @@ var AppModel = function(){
                 _.each(data, function(item){
                     item.data.showSummary = ko.observable(false);
                     self.redditPosts.push(item.data);
-                    console.log(item.data);
                 });
             })
             .fail(function(){
@@ -17,8 +16,15 @@ var AppModel = function(){
             })
     };
 
-    self.toggleSummary = function(item){
+    self.toggleSummary = function(item, event){
         item.showSummary(!item.showSummary());
+        $(event.target).parent().find('.icon-play').toggleClass('icon-rotate-90');
+
+        if(item.showSummary()){
+            var tempHtml = $('<div/>').html( item.selftext_html ).text();
+            $(event.target).parent().parent().find('.summary').html(tempHtml);
+        }
+
     }
 
 };

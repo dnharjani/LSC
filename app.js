@@ -55,6 +55,8 @@ reddit.posts = function(req, res){
                                             dateYear = (dateParts[2].length == 2 ? '20'+dateParts[2] : dateParts[2]),
                                             scheduledDate =  new Date(dateYear, dateParts[1]-1, dateParts[0]);
 
+                                            currentDate.setDate(currentDate.getDate() - 1);
+
                                         if(!(currentDate >= scheduledDate)){
                                             post.scheduledDate = scheduledDate;
                                         }
@@ -77,8 +79,10 @@ reddit.posts = function(req, res){
             post.permalink = 'http://www.reddit.com'+post.permalink;
         });
 
+        //remove posts without dates
         returnedPosts = _.reject(returnedPosts, function(item){ return item.data.scheduledDate === undefined });
         returnedPosts = _.sortBy(returnedPosts, function(item){ return item.data.scheduledDate });
+
         res.json(returnedPosts);
     });
 };

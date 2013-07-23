@@ -5,14 +5,25 @@
         <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
         <link rel="stylesheet" href="/stylesheets/bootstrap-responsive.css" />
         <link rel="stylesheet" href="/stylesheets/style.css" />
-        <link rel="stylesheet" href="/stylesheets/font-awesome.min.css" />
+        <link rel="stylesheet" href="/stylesheets/font-awesome.css" />
     </head>
     <body class="container" >
         <div id="posts-container">
             <ul id="posts" data-bind="foreach : redditPosts">
-                <li>
-                    <a data-bind="text: title, click: $parent.toggleSummary"></a>
-                    <div class="summary" data-bind="visible: showSummary, html: selftext"></div>
+                <li class="post-container">
+                    <a class="post" data-bind="click: $parent.toggleSummary">
+                        <i class="icon-play"></i>
+                        <span class="post-title" data-bind="text: title"></span>
+                    </a>
+                    <a class="btn btn-small">
+                        <i class="icon-user"></i>
+                        <span data-bind="text: author"></span>
+                    </a>
+                    <a class="reddit-button btn btn-small" data-bind="attr: {href: permalink}" target="_blank">
+                        <img src="http://www.redditstatic.com/spreddit5.gif">
+                        <span>Reddit</span>
+                    </a>
+                    <div class="summary" data-bind="visible: showSummary"></div>
                 </li>
             </ul>
         </div>
