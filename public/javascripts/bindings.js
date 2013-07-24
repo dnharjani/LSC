@@ -5,6 +5,8 @@ var AppModel = function(){
     self.dateList = ko.observableArray();
     var monthNamesShort = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     self.calendarScroll = null;
+    self.postScroll = null;
+	
 
     self.initialize = function(){
         if(navigator.onLine){
@@ -13,9 +15,11 @@ var AppModel = function(){
                     localStorage.setItem("lsc-events", JSON.stringify(data));
                     setupPostsArray(data);
                     setupDatesList(data);
+					$('#loading-screen').hide();
                 })
                 .fail(function(){
                     // Error message
+					$('#loading-screen').hide();
                 })
         }
         else{
@@ -33,7 +37,7 @@ var AppModel = function(){
 
     self.toggleSummary = function(item, event){
         var parentElement = $(event.target).closest('.post-container');
-
+		
         if(!item.showSummary()){
             var tempHtml = $('<div/>').html( item.selftext_html ).text();
             parentElement.find('.summary').html(tempHtml);
@@ -41,19 +45,20 @@ var AppModel = function(){
 
         // Triggers the show
         item.showSummary(!item.showSummary());
-
         parentElement.find('.icon-play').toggleClass('icon-rotate-90');
     };
 
     self.findIns = function(item, event){
         if(!item.insLoaded){
+			item.insLoaded = true;
             $.getJSON('/comments/'+item.id)
                 .done(function(data){
                     if(data[1]){
                         _.each(data[1].data.children, function(comment){
-                            var words = comment.data.body.toLowerCase().split(' ');
+							// remove non-alphanumeric chars
+							var commentStr = comment.data.body.replace(/[^a-zA-Z0-9 ]/, '').toLowerCase();
+                            var words = commentStr.split(' ');
                             if(words.indexOf("in") !== -1){
-                                item.insLoaded = true;
                                 item.ins.push({author: comment.data.author});
                             }
                         });
@@ -72,12 +77,11 @@ var AppModel = function(){
     };
 
     self.showEventsOnDay = function(item, event){
+		self.postScroll.refresh();
         if(item.events.length > 0){
-            $(document.body).animate({
-                'scrollTop':   $('#'+item.events[0].id).offset().top
-            }, 400);
-        }
-
+			var domElement = document.getElementById(item.events[0].id);
+			self.postScroll.scrollToElement(domElement,  400);
+		}
     };
 
     var setupPostsArray = function(redditPostData){
@@ -87,6 +91,8 @@ var AppModel = function(){
             item.data.insLoaded = false;
             self.redditPosts.push(item.data);
         });
+		
+		self.postScroll = new iScroll('posts-list-container', {useTransition:true, checkDOMChanges: true} );
     };
 
     var setupDatesList = function(redditPostData){
@@ -109,7 +115,7 @@ var AppModel = function(){
             self.dateList.push(dayObject);
         }
 
-        self.calendarScroll = new iScroll('posts-calendar-container', {vScroll: false});
+        self.calendarScroll = new iScroll('posts-calendar-container', {vScroll: false, useTransition:true, checkDOMChanges: true });
     }
 
 };
@@ -131,3 +137,4 @@ ko.bindingHandlers.slideVisible = {
 var appModel = new AppModel();
 ko.applyBindings(appModel);
 appModel.initialize();
+

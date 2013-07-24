@@ -1,5 +1,11 @@
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
 .container{
     padding: 0;
+	height: 100%;
 }
 
 ul{
@@ -33,6 +39,8 @@ li.odd{
     overflow: hidden;
     position: relative;
     padding-bottom: 8px;
+	background-color:white;
+	z-index: 10;
 
     #days{
         width: 3120px;
@@ -57,23 +65,24 @@ li.odd{
                 background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
                 background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
                 background-repeat: repeat-x;
-
-
-                .day{
-                    width: 100%;
-                    line-height: 12px;
-                    display: block;
+				
+                .day, 
+				.month {
+					display: block;
                     text-align: center;
                     font-weight: bolder;
-                }
+					background-color: #9494FF;
+					color: white;
+					width: 100%;
 
-                .month{
-                    display: block;
-                    width: 100%;
-                    text-align: center;
-                    font-weight: bolder;
-                }
 
+                }
+				
+				.day{
+					line-height: 12px;
+					padding-bottom: 5px;
+				}
+				
                 .event-marker-container{
                     margin-top: 7px;
                     padding: 3px;
@@ -81,7 +90,7 @@ li.odd{
                     line-height: 7px;
 
                     .event-marker{
-                        color: #ff4500;
+                        color: #9494FF;
                         margin: 1px;
                         font-size: 8px;
                     }
@@ -92,73 +101,85 @@ li.odd{
     }
 }
 
-i{
+i {
     color: #9494FF;
 }
 
 
 #posts-list-container{
-    overflow-x: hidden;
-
-    .post-container{
-        padding: 30px 10px;
-        box-shadow: 0 8px 6px -6px black;
-        border-bottom: 1px solid black;
-        margin-bottom: 3px;
-
-        .post{
-            display: block;
-            padding-bottom: 15px;
-
-
-            .post-title{
-                margin-left: 10px;
-                line-height: 20px;
-            }
-
-        }
-
-        .reddit-button img {
-            height: 2.3ex;
-            vertical-align: middle;
-            margin-top: 1px;
-        }
-
-        .reddit-button span {
-            margin-left:1px;
-        }
-
-        .summary{
-            margin-top: 25px;
-            overflow-y: hidden;
-        }
-
-        .in-list{
-            margin-top: 20px;
-        }
-
-        .btn-small{
-            margin: 0 5px;
-        }
-
-        .btn-small.first{
-          margin-left: 24px
-        }
-    }
-}
-
-.transtitionable{
-    -webkit-transition: all .5s linear;
-    -moz-transition: all .5s linear;
-    transition: all .5s linear;
-}
-
-.closed {
-    max-height: 0;
     overflow: hidden;
+	height: 100%;
+	
+	#posts {
+	height: auto;
+	padding-bottom: 100px;
+	
+		.post-container{
+			padding: 10px 10px;
+			box-shadow: 0 8px 6px -6px black;
+			border-bottom: 1px solid black;
+			margin-bottom: 3px;
+
+			.post{
+				display: block;
+				padding-bottom: 15px;
+
+
+				.post-title{
+					margin-left: 10px;
+					line-height: 20px;
+				}
+
+			}
+
+			.reddit-button img {
+				height: 2.3ex;
+				vertical-align: middle;
+				margin-top: 1px;
+			}
+
+			.reddit-button span {
+				margin-left:1px;
+			}
+
+			.summary{
+				margin-top: 25px;
+				overflow: hidden;
+			}
+
+			.in-list{
+				margin-top: 20px;
+				
+				.btn {
+					margin-top: 6px;
+				}
+			}
+
+			.btn-small{
+				margin: 0 5px;
+			}
+
+			.btn-small.first{
+			  margin-left: 24px
+			}
+		}
+	
+	}
 }
 
-.open{
-    max-height: 1000px;
+#loading-screen{
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	
+	#spinner{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		font-size: 150px;
+		margin-top: -75px;
+		margin-left: -75px;
+	}
 }
-
