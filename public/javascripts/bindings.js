@@ -32,17 +32,17 @@ var AppModel = function(){
     };
 
     self.toggleSummary = function(item, event){
-        item.showSummary(!item.showSummary());
         var parentElement = $(event.target).closest('.post-container');
-        parentElement.find('.icon-play').toggleClass('icon-rotate-90');
-        // TODO Rewrite this as a Knockout BindingHandler
-        var summaryElement =  parentElement.find('.summary');
-        summaryElement.toggleClass('open closed');
 
-        if(item.showSummary()){
+        if(!item.showSummary()){
             var tempHtml = $('<div/>').html( item.selftext_html ).text();
-            summaryElement.html(tempHtml);
+            parentElement.find('.summary').html(tempHtml);
         }
+
+        // Triggers the show
+        item.showSummary(!item.showSummary());
+
+        parentElement.find('.icon-play').toggleClass('icon-rotate-90');
     };
 
     self.findIns = function(item, event){
@@ -100,7 +100,9 @@ var AppModel = function(){
             dayObject.year =  new Date(calendarDate).getFullYear();
             dayObject.events = [];
             _.each(redditPostData, function(item){
-                if(Date.parse(item.data.scheduledDate) === calendarDate){
+                var eventDate = new Date(item.data.scheduledDate);
+                var calendarDateAsDate = new Date(calendarDate);
+                if(eventDate.getDate() === calendarDateAsDate.getDate() && eventDate.getFullYear() === calendarDateAsDate.getFullYear() && eventDate.getMonth() === calendarDateAsDate.getMonth()){
                     dayObject.events.push(item.data);
                 }
             });
@@ -110,6 +112,19 @@ var AppModel = function(){
         self.calendarScroll = new iScroll('posts-calendar-container', {vScroll: false});
     }
 
+};
+
+ko.bindingHandlers.slideVisible = {
+    init: function(element, valueAccessor) {
+        // Initially set the element to be instantly visible/hidden depending on the value
+        var value = valueAccessor();
+        $(element).toggle(ko.utils.unwrapObservable(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
+    },
+    update: function(element, valueAccessor) {
+        // Whenever the value subsequently changes, slowly fade the element in or out
+        var value = valueAccessor();
+        ko.utils.unwrapObservable(value) ? $(element).slideDown() : $(element).slideUp();
+    }
 };
 
 
