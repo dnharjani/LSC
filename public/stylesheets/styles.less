@@ -25,48 +25,64 @@ li.odd{
 .green{
     color: green;
 }
-
 #posts-calendar-container{
     overflow: hidden;
-    padding-left: 25px;
+    position: relative;
+    padding-bottom: 8px;
 
     #days{
         width: 3120px;
 
         li {
             float: left;
-            border: 1px solid black;
-            height: 50px;
+            border: 1px solid #cccccc;
+            border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            border-bottom-color: #b3b3b3;
+            height: 70px;
             width: 50px;
             position: relative;
 
-            .day{
-                position: absolute;
-                top:30%;
-                width: 50px;
-                display: block;
-                text-align: center;
-                font-weight: bolder;
-            }
+            a{
+                text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+                background-color: #e6e6e6;
+                background-color: #f5f5f5;
+                background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+                background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+                background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+                background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+                background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+                background-repeat: repeat-x;
 
-            .month{
-                display: block;
-                width: 100%;
-                text-align: center;
-                font-weight: bolder;
-            }
 
-        .event-marker-container{
-            margin-top: 11px;
-            text-align: center;
-            line-height: 7px;
+                .day{
+                    width: 100%;
+                    line-height: 12px;
+                    display: block;
+                    text-align: center;
+                    font-weight: bolder;
+                }
 
-            .event-marker{
-                color: #ff4500;
-                margin: 1px;
-                font-size: 8px;
+                .month{
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                    font-weight: bolder;
+                }
+
+                .event-marker-container{
+                    margin-top: 7px;
+                    padding: 3px;
+                    text-align: center;
+                    line-height: 7px;
+
+                    .event-marker{
+                        color: #ff4500;
+                        margin: 1px;
+                        font-size: 8px;
+                    }
+                }
             }
-        }
 
         }
     }

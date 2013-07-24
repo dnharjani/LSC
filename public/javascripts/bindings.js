@@ -4,7 +4,7 @@ var AppModel = function(){
     self.showError = ko.observable(false);
     self.dateList = ko.observableArray();
     var monthNamesShort = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-
+    self.calendarScroll = null;
 
     self.initialize = function(){
         if(navigator.onLine){
@@ -106,6 +106,8 @@ var AppModel = function(){
             });
             self.dateList.push(dayObject);
         }
+
+        self.calendarScroll = new iScroll('posts-calendar-container', {vScroll: false});
     }
 
 };

@@ -14,19 +14,18 @@
     </head>
     <body class="container" >
         <div id="posts-calendar-container">
-            <ul id="days" data-bind="foreach : dateList">
-                <li>
-                    <a data-bind="click : $parent.showEventsOnDay">
-                        <span class="day" data-bind="text : day"> </span>
-                        <span class="month" data-bind="text : month"> </span>
-                        <div class="event-marker-container" data-bind="foreach: events">
-                            <span class="event-marker icon-circle"></span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+                <ul id="days" data-bind="foreach : dateList">
+                    <li>
+                        <a data-bind="click : $parent.showEventsOnDay">
+                            <span class="month" data-bind="text : month"> </span>
+                            <span class="day" data-bind="text : day"> </span>
+                            <div class="event-marker-container" data-bind="foreach: events">
+                                <span class="event-marker icon-circle"></span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
         </div>
-
 
         <div id="posts-list-container">
             <ul id="posts" data-bind="foreach : redditPosts">
@@ -62,6 +61,7 @@
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+        <script type="text/javascript" src="/javascripts/iscroll.js"></script>
         <script type="text/javascript" src="/javascripts/bindings.js"></script>
     </body>
 </html>
