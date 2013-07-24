@@ -9,18 +9,23 @@
         <link rel="stylesheet" href="/stylesheets/normalize.css" />
         <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
         <link rel="stylesheet" href="/stylesheets/bootstrap-responsive.css" />
-        <link rel="stylesheet" href="/stylesheets/style.css" />
+        <link rel="stylesheet" href="/stylesheets/styles.css" />
         <link rel="stylesheet" href="/stylesheets/font-awesome.css" />
     </head>
     <body class="container" >
-        <div id="posts-container">
+        <div id="posts-calendar-container">
+
+        </div>
+
+
+        <div id="posts-list-container">
             <ul id="posts" data-bind="foreach : redditPosts">
                 <li data-bind="attr: {class : $parent.getRowClass($index)}">
                     <a class="post" data-bind="click: $parent.toggleSummary">
                         <i class="icon-play"></i>
                         <span class="post-title" data-bind="text: title"></span>
                     </a>
-                    <a class="btn btn-small">
+                    <a class="btn btn-small first">
                         <i class="icon-user"></i>
                         <span data-bind="text: author"></span>
                     </a>
@@ -31,16 +36,18 @@
                         <i class="icon-check"></i>
                         <span> Who's in?</span>
                     </a>
-                    <div class="summary" data-bind="slideVisible: showSummary"></div>
                     <div class="in-list" data-bind="foreach : ins">
                         <a class="btn btn-small" >
                             <i class="icon-male green"></i>
                             <span data-bind="text : author"></span>
                         </a>
                     </div>
+                    <div class="summary transtitionable closed"></div>
                 </li>
             </ul>
         </div>
+
+
 
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>

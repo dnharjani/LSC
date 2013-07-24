@@ -1,0 +1,93 @@
+.container{
+    padding: 0;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+}
+
+a{
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+a:link {text-decoration: none}
+a:visited {text-decoration: none}
+a:active {text-decoration: none}
+a:hover {text-decoration: none}
+
+li.odd{
+    background-color: #f7f7f9;
+}
+
+.green{
+    color: green;
+}
+
+#posts-list-container{
+    overflow-x: hidden;
+
+    .post-container{
+        padding: 30px 10px;
+        box-shadow: 0 8px 6px -6px black;
+        border-bottom: 1px solid black;
+        margin-bottom: 3px;
+
+        .post{
+            display: block;
+            padding-bottom: 15px;
+
+
+            .post-title{
+                margin-left: 10px;
+                line-height: 20px;
+            }
+
+        }
+
+        .reddit-button img {
+            height: 2.3ex;
+            vertical-align: middle;
+            margin-top: 1px;
+        }
+
+        .reddit-button span {
+            margin-left:1px;
+        }
+
+        .summary{
+            margin-top: 25px;
+            overflow-y: hidden;
+        }
+
+        .in-list{
+            margin-top: 20px;
+        }
+
+        .btn-small{
+            margin: 0 5px;
+        }
+
+        .btn-small.first{
+          margin-left: 24px
+        }
+    }
+}
+
+.transtitionable{
+    -webkit-transition: all .5s linear;
+    -moz-transition: all .5s linear;
+    transition: all .5s linear;
+}
+
+.closed {
+    max-height: 0;
+    overflow: hidden;
+}
+
+.open{
+    max-height: 1000px;
+}
+

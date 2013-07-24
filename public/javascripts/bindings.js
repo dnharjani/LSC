@@ -1,29 +1,43 @@
 var AppModel = function(){
     var self = this;
     self.redditPosts = ko.observableArray();
+    self.showError = ko.observable(false);
 
     self.initialize = function(){
-        $.getJSON('/posts')
-            .done(function(data){
-                _.each(data, function(item){
-                    item.data.showSummary = ko.observable(false);
-                    item.data.ins = ko.observableArray();
-                    item.data.insLoaded = false;
-                    self.redditPosts.push(item.data);
-                });
-            })
-            .fail(function(){
+        if(navigator.onLine){
+            $.getJSON('/posts')
+                .done(function(data){
+                    localStorage.setItem("lsc-events", JSON.stringify(data));
 
-            })
+                    setupPostsArray(data);
+                })
+                .fail(function(){
+                    // Error message
+                })
+        }
+        else{
+            var events = localStorage.getItem("lsc-events");
+             if(events !== undefined && events !== null){
+                 var parsedEvents = JSON.parse(events);
+                 setupPostsArray(parsedEvents);
+             }
+            else{
+                 // Error message
+             }
+        }
     };
 
     self.toggleSummary = function(item, event){
         item.showSummary(!item.showSummary());
-        $(event.target).parent().find('.icon-play').toggleClass('icon-rotate-90');
+        var parentElement = $(event.target).closest('.post-container');
+        parentElement.find('.icon-play').toggleClass('icon-rotate-90');
+        // TODO Rewrite this as a Knockout BindingHandler
+        var summaryElement =  parentElement.find('.summary');
+        summaryElement.toggleClass('open closed');
 
         if(item.showSummary()){
             var tempHtml = $('<div/>').html( item.selftext_html ).text();
-            $(event.target).parent().parent().find('.summary').html(tempHtml);
+            summaryElement.html(tempHtml);
         }
     };
 
@@ -43,7 +57,7 @@ var AppModel = function(){
 
                 })
                 .fail(function(){
-
+                    // Error message
                 })
 
         }
@@ -51,22 +65,19 @@ var AppModel = function(){
 
     self.getRowClass = function(index){
         return (index() % 2 === 0 ? 'post-container even' : 'post-container odd')
+    };
+
+    var setupPostsArray = function(redditPostData){
+        _.each(redditPostData, function(item){
+            item.data.showSummary = ko.observable(false);
+            item.data.ins = ko.observableArray();
+            item.data.insLoaded = false;
+            self.redditPosts.push(item.data);
+        });
     }
 
 };
 
-ko.bindingHandlers.slideVisible = {
-    init: function(element, valueAccessor) {
-        // Initially set the element to be instantly visible/hidden depending on the value
-        var value = valueAccessor();
-        $(element).toggle(ko.utils.unwrapObservable(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
-    },
-    update: function(element, valueAccessor) {
-        // Whenever the value subsequently changes, slowly fade the element in or out
-        var value = valueAccessor();
-        ko.utils.unwrapObservable(value) ? $(element).slideDown() : $(element).slideUp();
-    }
-};
 
 var appModel = new AppModel();
 ko.applyBindings(appModel);
