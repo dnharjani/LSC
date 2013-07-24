@@ -26,6 +26,57 @@ li.odd{
     color: green;
 }
 
+#posts-calendar-container{
+    overflow: hidden;
+    padding-left: 25px;
+
+    #days{
+        width: 3120px;
+
+        li {
+            float: left;
+            border: 1px solid black;
+            height: 50px;
+            width: 50px;
+            position: relative;
+
+            .day{
+                position: absolute;
+                top:30%;
+                width: 50px;
+                display: block;
+                text-align: center;
+                font-weight: bolder;
+            }
+
+            .month{
+                display: block;
+                width: 100%;
+                text-align: center;
+                font-weight: bolder;
+            }
+
+        .event-marker-container{
+            margin-top: 11px;
+            text-align: center;
+            line-height: 7px;
+
+            .event-marker{
+                color: #ff4500;
+                margin: 1px;
+                font-size: 8px;
+            }
+        }
+
+        }
+    }
+}
+
+i{
+    color: #9494FF;
+}
+
+
 #posts-list-container{
     overflow-x: hidden;
 

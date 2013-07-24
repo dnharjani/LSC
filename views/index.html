@@ -14,13 +14,23 @@
     </head>
     <body class="container" >
         <div id="posts-calendar-container">
-
+            <ul id="days" data-bind="foreach : dateList">
+                <li>
+                    <a data-bind="click : $parent.showEventsOnDay">
+                        <span class="day" data-bind="text : day"> </span>
+                        <span class="month" data-bind="text : month"> </span>
+                        <div class="event-marker-container" data-bind="foreach: events">
+                            <span class="event-marker icon-circle"></span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
 
 
         <div id="posts-list-container">
             <ul id="posts" data-bind="foreach : redditPosts">
-                <li data-bind="attr: {class : $parent.getRowClass($index)}">
+                <li data-bind="attr: {class : $parent.getRowClass($index), id : id}">
                     <a class="post" data-bind="click: $parent.toggleSummary">
                         <i class="icon-play"></i>
                         <span class="post-title" data-bind="text: title"></span>
