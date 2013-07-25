@@ -142,7 +142,8 @@ i {
   margin-top: 20px;
 }
 #posts-list-container #posts .post-container .in-list .btn-small {
-  margin-top: 4px;
+  margin-top: 5px;
+  margin-right: 3px;
 }
 #posts-list-container #posts .post-container .summary {
   margin-top: 25px;
@@ -170,6 +171,7 @@ i {
   margin-top: -75px;
   margin-left: -75px;
   z-index: 30;
+  color: white;
 }
 #map-modal {
   padding: 10px;
