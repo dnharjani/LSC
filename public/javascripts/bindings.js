@@ -53,8 +53,8 @@ var AppModel = function(){
 
 
     self.findIns = function(item, event){
-        $('#loading-screen').show();
         if(!item.insLoaded){
+            $('#loading-screen').show();
 			item.insLoaded = true;
             $.getJSON('/comments/'+item.id)
                 .done(function(data){
