@@ -48,10 +48,9 @@
                         </a>
                         <a class="btn" data-bind="click : $parent.findIns">
                             <i class="icon-check"></i>
-                            <span> Who's in?</span>
+                            <span>Who's in?</span>
                         </a>
                     </div>
-
 
                     <div class="in-list" data-bind="foreach : ins">
                         <a class="btn btn-small" >
@@ -59,7 +58,8 @@
                             <span data-bind="text : author"></span>
                         </a>
                     </div>
-                    <div class="summary" data-bind="slideVisible: showSummary"></div>
+
+                    <div class="summary"></div>
                 </li>
             </ul>
         </div>
@@ -69,10 +69,10 @@
 		</div>
 		
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="/javascripts/jquery.transit.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
         <script type="text/javascript" src="/javascripts/iscroll.js"></script>
+
         <script type="text/javascript" src="/javascripts/bindings.js"></script>
     </body>
 </html>
