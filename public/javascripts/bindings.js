@@ -49,6 +49,7 @@ var AppModel = function(){
     };
 
     self.findIns = function(item, event){
+        $('#loading-screen').show();
         if(!item.insLoaded){
 			item.insLoaded = true;
             $.getJSON('/comments/'+item.id)
@@ -63,12 +64,12 @@ var AppModel = function(){
                             }
                         });
                     }
-
+                    $('#loading-screen').hide();
                 })
                 .fail(function(){
                     // Error message
+                    $('#loading-screen').hide();
                 })
-
         }
     };
 
@@ -82,6 +83,14 @@ var AppModel = function(){
 			var domElement = document.getElementById(item.events[0].id);
 			self.postScroll.scrollToElement(domElement,  400);
 		}
+    };
+
+    self.showMap = function(item, event){
+        console.log(item);
+    };
+
+    self.mapButtonVisible = function(item, event){
+        return item.scheduledPlace;
     };
 
     var setupPostsArray = function(redditPostData){

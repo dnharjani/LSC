@@ -1,3 +1,5 @@
+@periwinkle :  #9494FF;
+
 html, body {
   overflow: hidden;
   height: 100%;
@@ -56,7 +58,6 @@ li.odd{
             position: relative;
 
             a{
-                text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
                 background-color: #e6e6e6;
                 background-color: #f5f5f5;
                 background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
@@ -71,11 +72,9 @@ li.odd{
 					display: block;
                     text-align: center;
                     font-weight: bolder;
-					background-color: #9494FF;
+					background-color: @periwinkle;
 					color: white;
 					width: 100%;
-
-
                 }
 				
 				.day{
@@ -90,7 +89,7 @@ li.odd{
                     line-height: 7px;
 
                     .event-marker{
-                        color: #9494FF;
+                        color: @periwinkle;
                         margin: 1px;
                         font-size: 8px;
                     }
@@ -102,7 +101,7 @@ li.odd{
 }
 
 i {
-    color: #9494FF;
+    color: orangered;
 }
 
 
@@ -116,53 +115,61 @@ i {
 	
 		.post-container{
 			padding: 10px 10px;
-			box-shadow: 0 8px 6px -6px black;
-			border-bottom: 1px solid black;
-			margin-bottom: 3px;
+            color: #000000;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-bottom-color: #CCCCCC;
+            position: relative;
 
-			.post{
-				display: block;
+            .show-map{
+                position: absolute;
+                right: 5px;
+                top: 30px;
+            }
+
+			.post {
+				display: inline-block;
 				padding-bottom: 15px;
 
-
 				.post-title{
-					margin-left: 10px;
 					line-height: 20px;
-				}
-
-			}
-
-			.reddit-button img {
-				height: 2.3ex;
-				vertical-align: middle;
-				margin-top: 1px;
-			}
-
-			.reddit-button span {
-				margin-left:1px;
-			}
-
-			.summary{
-				margin-top: 25px;
-				overflow: hidden;
-			}
-
-			.in-list{
-				margin-top: 20px;
-				
-				.btn {
-					margin-top: 6px;
+                    padding-right: 25px;
 				}
 			}
 
-			.btn-small{
-				margin: 0 5px;
-			}
+            .event-actions{
+                display: block;
+                width: 100%;
 
-			.btn-small.first{
-			  margin-left: 24px
-			}
-		}
+                .btn{
+                    border-radius: 0;
+                }
+
+                .reddit-button img {
+                    height: 2.3ex;
+                    vertical-align: middle;
+                    margin-top: 1px;
+                }
+
+                .reddit-button span {
+                    margin-left:1px;
+                }
+            }
+
+            .in-list{
+                margin-top: 20px;
+
+                .btn-small{
+                    margin-top: 4px;
+                }
+            }
+
+
+            .summary{
+                margin-top: 25px;
+                overflow: hidden;
+            }
+        }
 	
 	}
 }
@@ -173,6 +180,9 @@ i {
 	position: absolute;
 	left: 0;
 	top: 0;
+    opacity: 0.8;
+    z-index: 20;
+    background-color: black;
 	
 	#spinner{
 		position: absolute;
@@ -181,5 +191,6 @@ i {
 		font-size: 150px;
 		margin-top: -75px;
 		margin-left: -75px;
+        z-index: 30;
 	}
 }

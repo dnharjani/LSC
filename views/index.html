@@ -31,20 +31,28 @@
             <ul id="posts" data-bind="foreach : redditPosts">
                 <li data-bind="attr: {class : $parent.getRowClass($index), id : id}">
                     <a class="post" data-bind="click: $parent.toggleSummary">
-                        <i class="icon-play"></i>
-                        <span class="post-title" data-bind="text: title"></span>
+                        <!--<i class="icon-play"></i>-->
+                        <h4 class="post-title" data-bind="text: title"></h4>
+                        <a class="btn btn-small show-map" data-bind="visible: $parent.mapButtonVisible, click : $parent.showMap">
+                            <i class="icon-map-marker"></i>
+                        </a>
                     </a>
-                    <a class="btn btn-small">
-                        <i class="icon-user"></i>
-                        <span data-bind="text: author"></span>
-                    </a>
-                    <a class="reddit-button btn btn-small" data-bind="attr: {href: permalink}" target="_blank">
-                        <img src="http://www.redditstatic.com/spreddit5.gif">
-                    </a>
-                    <a class="btn btn-small" data-bind="click : $parent.findIns">
-                        <i class="icon-check"></i>
-                        <span> Who's in?</span>
-                    </a>
+
+                    <div class="btn-group event-actions">
+                        <a class="btn">
+                            <i class="icon-user"></i>
+                            <span data-bind="text: author"></span>
+                        </a>
+                        <a class="reddit-button btn" data-bind="attr: {href: permalink}" target="_blank">
+                            <img src="http://www.redditstatic.com/spreddit5.gif">
+                        </a>
+                        <a class="btn" data-bind="click : $parent.findIns">
+                            <i class="icon-check"></i>
+                            <span> Who's in?</span>
+                        </a>
+                    </div>
+
+
                     <div class="in-list" data-bind="foreach : ins">
                         <a class="btn btn-small" >
                             <i class="icon-male green"></i>
@@ -61,6 +69,7 @@
 		</div>
 		
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="/javascripts/jquery.transit.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
         <script type="text/javascript" src="/javascripts/iscroll.js"></script>
