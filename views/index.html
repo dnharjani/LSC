@@ -33,7 +33,7 @@
                     <a class="post" data-bind="click: $parent.toggleSummary">
                         <!--<i class="icon-play"></i>-->
                         <h4 class="post-title" data-bind="text: title"></h4>
-                        <a class="btn btn-small show-map" data-bind="visible: $parent.mapButtonVisible, click : $parent.showMap">
+                        <a class="btn btn-small show-map" data-bind="visible : showMapButton, click : $parent.showMap">
                             <i class="icon-map-marker"></i>
                         </a>
                     </a>
@@ -67,11 +67,19 @@
 		<div id="loading-screen">
 			<div id="spinner" class="icon-spinner icon-spin icon-large"></div>
 		</div>
+
+        <div id="map-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="error"> Sorry, your location could not be found.</div>
+            <div id="map-container"></div>
+        </div>
 		
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
         <script type="text/javascript" src="/javascripts/iscroll.js"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        <script type="text/javascript" src="/javascripts/gmaps.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
         <script type="text/javascript" src="/javascripts/bindings.js"></script>
     </body>

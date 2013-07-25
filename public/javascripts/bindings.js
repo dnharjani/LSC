@@ -6,6 +6,7 @@ var AppModel = function(){
     var monthNamesShort = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
     self.calendarScroll = null;
     self.postScroll = null;
+    self.currentMap = null;
 	
 
     self.initialize = function(){
@@ -28,9 +29,11 @@ var AppModel = function(){
                  var parsedEvents = JSON.parse(events);
                  setupPostsArray(parsedEvents);
                  setupDatesList(parsedEvents);
+                 $('#loading-screen').hide();
              }
             else{
                  // Error message
+                 $('#loading-screen').hide();
              }
         }
     };
@@ -93,11 +96,36 @@ var AppModel = function(){
     };
 
     self.showMap = function(item, event){
-        console.log(item);
+        if(self.currentMap !== null){
+            geocodeAddress(item.scheduledPlace);
+        }
+
+        $('#map-modal').on('shown', function(){
+            if(self.currentMap === null){
+                self.currentMap = new GMaps({
+                    div: '#map-container',
+                    lat: 51,
+                    lng: 32
+                });
+                geocodeAddress(item.scheduledPlace);
+            }
+        });
+
+        $('#map-modal').modal();
     };
 
-    self.mapButtonVisible = function(item, event){
-        return item.scheduledPlace;
+    var geocodeAddress = function(address){
+        GMaps.geocode({
+            address: address + " London",
+            callback: function(results, status) {
+                if (status == 'OK') {
+                    var latlng = results[0].geometry.location;
+                    self.currentMap.removeMarkers();
+                    self.currentMap.setCenter(latlng.jb, latlng.kb);
+                    self.currentMap.addMarker({lat: latlng.jb, lng: latlng.kb});
+                }
+            }
+        });
     };
 
     var setupPostsArray = function(redditPostData){
@@ -105,6 +133,13 @@ var AppModel = function(){
             item.data.showSummary = ko.observable(false);
             item.data.ins = ko.observableArray();
             item.data.insLoaded = false;
+            if(item.data.scheduledPlace === undefined || item.data.scheduledPlace === null ){
+                item.data.showMapButton = ko.observable(false);
+            }
+            else{
+                item.data.showMapButton = ko.observable(true);
+            }
+
             self.redditPosts.push(item.data);
         });
 		

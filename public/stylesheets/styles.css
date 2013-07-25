@@ -171,3 +171,18 @@ i {
   margin-left: -75px;
   z-index: 30;
 }
+#map-modal {
+  padding: 10px;
+}
+#map-modal .error {
+  display: none;
+  background-color: #f2dede;
+  font-weight: bold;
+  padding: 5px;
+}
+#map-modal #map-container {
+  display: block;
+  height: 300px;
+  width: 100%;
+  background-color: white;
+}
