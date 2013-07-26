@@ -17,8 +17,8 @@
 			<ul id="days" data-bind="foreach : dateList">
 				<li>
 					<a data-bind="click : $parent.showEventsOnDay">
-						<span class="month" data-bind="text : month"> </span>
 						<span class="day" data-bind="text : day"> </span>
+						<span class="date" data-bind="text : date"> </span>
 						<div class="event-marker-container" data-bind="foreach: events">
 							<span class="event-marker icon-circle"></span>
 						</div>
@@ -32,7 +32,7 @@
                 <li data-bind="attr: {class : $parent.getRowClass($index), id : id}">
                     <a class="post" data-bind="click: $parent.toggleSummary">
                         <!--<i class="icon-play"></i>-->
-                        <h4 class="post-title" data-bind="text: title"></h4>
+                        <h4 class="post-title" data-bind="html: title"></h4>
                         <a class="btn btn-small show-map" data-bind="visible : showMapButton, click : $parent.showMap">
                             <i class="icon-map-marker"></i>
                         </a>
@@ -53,8 +53,8 @@
                     </div>
 
                     <div class="in-list" data-bind="foreach : ins">
-                        <a class="btn btn-small" >
-                            <i class="icon-male green"></i>
+                        <a class="btn btn-small">
+                            <i class="icon-male" data-bind="css: status"></i>
                             <span data-bind="text : author"></span>
                         </a>
                     </div>

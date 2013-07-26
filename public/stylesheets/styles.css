@@ -34,8 +34,11 @@ a:hover {
 li.odd {
   background-color: #f7f7f9;
 }
-.green {
+.in {
   color: green;
+}
+.maybe {
+  color: yellow;
 }
 #posts-calendar-container {
   overflow: hidden;
@@ -68,15 +71,15 @@ li.odd {
   background-repeat: repeat-x;
 }
 #posts-calendar-container #days li a .day,
-#posts-calendar-container #days li a .month {
+#posts-calendar-container #days li a .date {
   display: block;
   text-align: center;
   font-weight: bolder;
-  background-color: #9494ff;
+  background-color: #ff4500;
   color: white;
   width: 100%;
 }
-#posts-calendar-container #days li a .day {
+#posts-calendar-container #days li a .date {
   line-height: 12px;
   padding-bottom: 5px;
 }
@@ -87,12 +90,12 @@ li.odd {
   line-height: 7px;
 }
 #posts-calendar-container #days li a .event-marker-container .event-marker {
-  color: #9494ff;
+  color: #ff4500;
   margin: 1px;
   font-size: 8px;
 }
 i {
-  color: orangered;
+  color: #ff4500;
 }
 #posts-list-container {
   overflow: hidden;

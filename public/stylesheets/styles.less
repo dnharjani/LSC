@@ -1,4 +1,5 @@
 @periwinkle :  #9494FF;
+@orangered :  orangered;
 
 html, body {
   overflow: hidden;
@@ -34,9 +35,14 @@ li.odd{
     background-color: #f7f7f9;
 }
 
-.green{
+.in{
     color: green;
 }
+
+.maybe{
+    color: yellow;
+}
+
 #posts-calendar-container{
     overflow: hidden;
     position: relative;
@@ -68,16 +74,16 @@ li.odd{
                 background-repeat: repeat-x;
 				
                 .day, 
-				.month {
+				.date {
 					display: block;
                     text-align: center;
                     font-weight: bolder;
-					background-color: @periwinkle;
+					background-color: @orangered;
 					color: white;
 					width: 100%;
                 }
 				
-				.day{
+				.date{
 					line-height: 12px;
 					padding-bottom: 5px;
 				}
@@ -89,7 +95,7 @@ li.odd{
                     line-height: 7px;
 
                     .event-marker{
-                        color: @periwinkle;
+                        color: @orangered;
                         margin: 1px;
                         font-size: 8px;
                     }
@@ -101,7 +107,7 @@ li.odd{
 }
 
 i {
-    color: orangered;
+    color: @orangered;
 }
 
 

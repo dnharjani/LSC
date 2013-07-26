@@ -3,7 +3,7 @@ var AppModel = function(){
     self.redditPosts = ko.observableArray();
     self.showError = ko.observable(false);
     self.dateList = ko.observableArray();
-    var monthNamesShort = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    var dayNamesShort = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     self.calendarScroll = null;
     self.postScroll = null;
     self.currentMap = null;
@@ -48,7 +48,6 @@ var AppModel = function(){
         }
 
         item.showSummary(!item.showSummary());
-        // parentElement.find('.icon-play').toggleClass('icon-rotate-90');
     };
 
 
@@ -63,9 +62,17 @@ var AppModel = function(){
 							// remove non-alphanumeric chars
 							var commentStr = comment.data.body.replace(/[^a-zA-Z0-9 ]/, '').toLowerCase();
                             var words = commentStr.split(' ');
-                            if(words.indexOf("in") !== -1){
-                                item.ins.push({author: comment.data.author});
+                            if(words.indexOf("out") !== -1){
+                               // figure something to do with outs
                             }
+                            else if(words.indexOf("in") !== -1){
+                                item.ins.push({author: comment.data.author , status: 'in'});
+                            }
+                            else if(words.indexOf("maybe") !== -1){
+                                item.ins.push({author: comment.data.author , status: 'maybe'});
+                            }
+
+
                         });
                     }
                     $('#loading-screen').hide();
@@ -146,8 +153,8 @@ var AppModel = function(){
         for(var i = 0; i<60 ; i++){
             var dayObject = {};
             var calendarDate = currentDate + (i*86400000);
-            dayObject.day =  new Date(calendarDate).getDate();
-            dayObject.month =  monthNamesShort[new Date(calendarDate).getMonth()];
+            dayObject.date =  new Date(calendarDate).getDate();
+            dayObject.day =  dayNamesShort[new Date(calendarDate).getDay()];
             dayObject.year =  new Date(calendarDate).getFullYear();
             dayObject.events = [];
             _.each(redditPostData, function(item){
