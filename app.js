@@ -31,11 +31,13 @@ reddit.posts = function(req, res){
     redwrap.r(subreddit).limit(100).exe(function(err, data){
         var returnedPosts = data.data.children;
 
-        // Find the scheduled date for the event
+
         _.each(returnedPosts, function(item){
+                                    // Find the scheduled date for the event
                                     var post = item.data,
                                         dateRegex = /\d{1,2}\/\d{1,2}\/\d{2,4}/,
-                                        dateResult = post.title.match(dateRegex);
+                                        dateResult = post.title.match(dateRegex),
+                                        placeSeparator = post.title.indexOf('@');
 
                                     if(dateResult !== null){
                                         var dateParts = dateResult[0].split('/'),
@@ -49,22 +51,16 @@ reddit.posts = function(req, res){
                                             post.scheduledDate = scheduledDate;
                                         }
                                     }
-                              });
 
-        // Find the place of the event
-        _.each(returnedPosts, function(item){
-            var post = item.data,
-                placeSeparator = post.title.indexOf('@');
+                                    // Find the scheduled place for the event
+                                    if(placeSeparator !== null){
+                                        var placeSplitTitle = post.title.split('@');
+                                        post.scheduledPlace =  placeSplitTitle[1];
+                                    }
 
-            if(placeSeparator !== null){
-                var placeSplitTitle = post.title.split('@');
-                post.scheduledPlace =  placeSplitTitle[1];
-            }
-        });
+                                    post.permalink = 'http://www.reddit.com'+post.permalink;
 
-        _.each(returnedPosts, function(item){
-            var post = item.data;
-            post.permalink = 'http://www.reddit.com'+post.permalink;
+
         });
 
         //remove posts without dates
