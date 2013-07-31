@@ -5,6 +5,7 @@ define(["./knockout", "./underscore", "./gmaps", "./bootstrap"], function(ko) {
         self.redditPosts = ko.observableArray();
         self.showError = ko.observable(false);
         self.dateList = ko.observableArray();
+        self.loadingScreen = ko.observable(true);
         var dayNamesShort = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
         self.calendarScroll = null;
         self.postScroll = null;
@@ -18,11 +19,11 @@ define(["./knockout", "./underscore", "./gmaps", "./bootstrap"], function(ko) {
                         localStorage.setItem("lsc-events", JSON.stringify(data));
                         setupPostsArray(data);
                         setupDatesList(data);
-                        $('#loading-screen').hide();
+                        self.loadingScreen(false);
                     })
                     .fail(function(){
                         // Error message
-                        $('#loading-screen').hide();
+                        self.loadingScreen(false);
                     })
             }
             else{
@@ -31,11 +32,11 @@ define(["./knockout", "./underscore", "./gmaps", "./bootstrap"], function(ko) {
                      var parsedEvents = JSON.parse(events);
                      setupPostsArray(parsedEvents);
                      setupDatesList(parsedEvents);
-                     $('#loading-screen').hide();
+                     self.loadingScreen(false);
                  }
                 else{
                      // Error message
-                     $('#loading-screen').hide();
+                     self.loadingScreen(false);
                  }
             }
         };
@@ -55,7 +56,7 @@ define(["./knockout", "./underscore", "./gmaps", "./bootstrap"], function(ko) {
 
         self.findIns = function(item, event){
             if(!item.insLoaded){
-                $('#loading-screen').show();
+                self.loadingScreen(true);
                 item.insLoaded = true;
                 $.getJSON('/comments/'+item.id)
                     .done(function(data){
@@ -77,11 +78,11 @@ define(["./knockout", "./underscore", "./gmaps", "./bootstrap"], function(ko) {
 
                             });
                         }
-                        $('#loading-screen').hide();
+                        self.loadingScreen(false);
                     })
                     .fail(function(){
                         // Error message
-                        $('#loading-screen').hide();
+                        self.loadingScreen(false);
                     })
             }
         };
@@ -183,6 +184,19 @@ define(["./knockout", "./underscore", "./gmaps", "./bootstrap"], function(ko) {
             // Whenever the value subsequently changes, slowly fade the element in or out
             var value = valueAccessor();
             ko.utils.unwrapObservable(value) ? $(element).slideDown() : $(element).slideUp();
+        }
+    };
+
+    ko.bindingHandlers.fadeVisible = {
+        init: function(element, valueAccessor) {
+            // Initially set the element to be instantly visible/hidden depending on the value
+            var value = valueAccessor();
+            $(element).toggle(ko.utils.unwrapObservable(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
+        },
+        update: function(element, valueAccessor) {
+            // Whenever the value subsequently changes, slowly fade the element in or out
+            var value = valueAccessor();
+            ko.utils.unwrapObservable(value) ? $(element).show() : $(element).fadeOut();
         }
     };
 
