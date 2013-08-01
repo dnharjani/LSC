@@ -1,4 +1,5 @@
-define(["./knockout", "./underscore", "./gmaps", "./bootstrap"], function(ko) {
+define(["./knockout", "./underscore", "./gmaps", "./backbone"], function(ko, _, GMaps, Backbone)
+{
 
     var AppModel = function(){
         var self = this;
@@ -205,6 +206,5 @@ define(["./knockout", "./underscore", "./gmaps", "./bootstrap"], function(ko) {
     var appModel = new AppModel();
     ko.applyBindings(appModel);
     appModel.initialize();
-    return appModel;
 });
 
