@@ -29,6 +29,10 @@ require.config({
 
         underscore: {
             exports: '_'
+        },
+
+        gmaps: {
+            exports: 'GMaps'
         }
 
     }
