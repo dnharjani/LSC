@@ -1,4 +1,4 @@
-define(["./knockout", "./underscore", "./gmaps", "./backbone"], function(ko, _, GMaps, Backbone)
+define(["./knockout", "./underscore", "./gmaps", "./backbone", "./modernizr"], function(ko, _, GMaps, Backbone, Modernizr)
 {
 
     var AppModel = function(){
@@ -101,7 +101,10 @@ define(["./knockout", "./underscore", "./gmaps", "./backbone"], function(ko, _, 
         };
 
         self.showMap = function(item, event){
+
             if(self.currentMap !== null){
+                self.currentMap.removeMarkers();
+                self.currentMap.removePolylines();
                 geocodeAddress(item.scheduledPlace);
             }
 
@@ -125,12 +128,29 @@ define(["./knockout", "./underscore", "./gmaps", "./backbone"], function(ko, _, 
                 callback: function(results, status) {
                     if (status == 'OK') {
                         var latlng = results[0].geometry.location;
-                        self.currentMap.removeMarkers();
                         self.currentMap.setCenter(latlng.jb, latlng.kb);
                         self.currentMap.addMarker({lat: latlng.jb, lng: latlng.kb});
+                        drawRoute([latlng.jb, latlng.kb]);
                     }
                 }
             });
+        };
+
+        var drawRoute = function(dest){
+            var success = function(position){
+                self.currentMap.addMarker({lat: position.coords.latitude , lng: position.coords.longitude, icon : "http://maps.google.com/mapfiles/ms/icons/green-dot.png"});
+                self.currentMap.drawRoute({
+                    origin : [position.coords.latitude,  position.coords.longitude],
+                    destination : dest
+                });
+            };
+            var error = function(err){
+                // handle the error
+            };
+
+            if (Modernizr.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
         };
 
         var setupPostsArray = function(redditPostData){

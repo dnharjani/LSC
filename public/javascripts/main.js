@@ -10,6 +10,7 @@ require.config({
         "knockout" : "knockout",
         "underscore" : "underscore",
         "backbone" : "backbone",
+        "modernizr" : "modernizr",
         "bindings" : "bindings"
     },
     shim: {
@@ -33,6 +34,10 @@ require.config({
 
         gmaps: {
             exports: 'GMaps'
+        },
+
+        modernizr: {
+            exports: 'Modernizr'
         }
 
     }
