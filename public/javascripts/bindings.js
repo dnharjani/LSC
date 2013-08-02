@@ -9,7 +9,6 @@ define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtil
         var dayNamesShort = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
         self.calendarScroll = null;
         self.postScroll = null;
-        self.currentMap = null;
 
         self.initialize = function(){
             if(navigator.onLine){
@@ -103,18 +102,18 @@ define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtil
         };
 
         self.showMap = function(item, event){
-            if(self.currentMap !== null){
-                MapUtils.cleanMap(self.currentMap);
-                MapUtils.geocodeAddress(self.currentMap, item.scheduledPlace);
-                MapUtils.getUserLocation(self.currentMap);
+            if(MapUtils.getMap() !== null){
+                MapUtils.cleanMap();
+                MapUtils.geocodeAddress(item.scheduledPlace);
+                MapUtils.getUserLocation();
             }
 
             $('#map-modal').on('shown', function(){
-                if(self.currentMap === null){
-                    self.currentMap = MapUtils.createMap();
-                    MapUtils.cleanMap(self.currentMap);
-                    MapUtils.geocodeAddress(self.currentMap, item.scheduledPlace);
-                    MapUtils.getUserLocation(self.currentMap);
+                if(MapUtils.getMap() === null){
+                    MapUtils.createMap();
+                    MapUtils.cleanMap();
+                    MapUtils.geocodeAddress(item.scheduledPlace);
+                    MapUtils.getUserLocation();
                 }
             });
 
