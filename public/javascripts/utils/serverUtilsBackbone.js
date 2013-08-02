@@ -1,4 +1,4 @@
-define(["./backbone", "./underscore"], function(Backbone, _)
+define(["backbone", "../../."], function(Backbone, _)
 {
     var ServerUtils = function(){
         var Post = Backbone.Model.extend({});

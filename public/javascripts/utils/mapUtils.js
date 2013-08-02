@@ -1,4 +1,4 @@
-define(["./gmaps", "./modernizr"], function(GMaps, Modernizr)
+define(["gmaps", "modernizr"], function(GMaps, Modernizr)
 {
     var city = " London";
     var currentMap = null;

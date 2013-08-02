@@ -1,4 +1,4 @@
-define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtilsJquery"], function(ko, _, Modernizr, MapUtils, ServerUtils)
+define(["knockout", "underscore", "modernizr", "mapUtils", "serverUtilsJquery"], function(ko, _, Modernizr, MapUtils, ServerUtils)
 {
     var AppModel = function(){
         var self = this;

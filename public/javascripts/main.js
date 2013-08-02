@@ -1,18 +1,19 @@
 require.config({
     paths: {
-        "jquery": "jquery",
-        "bootstrap": "bootstrap",
-        "gmaps": "gmaps",
-        "iscroll" : "iscroll",
-        "knockout" : "knockout",
-        "underscore" : "underscore",
-        "backbone" : "backbone",
-        "modernizr" : "modernizr",
+        "jquery": "vendor/jquery",
+        "bootstrap": "vendor/bootstrap",
+        "gmaps": "vendor/gmaps",
+        "iscroll" : "vendor/iscroll",
+        "knockout" : "vendor/knockout",
+        "underscore" : "vendor/underscore",
+        "backbone" : "vendor/backbone",
+        "modernizr" : "vendor/modernizr",
+
         "bindings" : "bindings",
-        "bindingHandlers" : "bindingHandlers",
-        "mapUtils" : "mapUtils",
-        "serverUtilsJquery" : "serverUtilsJquery",
-        "serverUtilsBackbone" : "serverUtilsBackbone"
+        "bindingHandlers" : "utils/bindingHandlers",
+        "mapUtils" : "utils/mapUtils",
+        "serverUtilsJquery" : "utils/serverUtilsJquery",
+        "serverUtilsBackbone" : "utils/serverUtilsBackbone"
     },
     shim: {
         "bootstrap": {

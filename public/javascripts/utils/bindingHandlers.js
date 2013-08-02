@@ -1,4 +1,4 @@
-define(["./knockout"], function(ko)
+define(["knockout" , "jquery"], function(ko)
 {
 
 ko.bindingHandlers.slideVisible = {
