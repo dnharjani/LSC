@@ -1,7 +1,4 @@
-
-
 require.config({
-    // pathsオプションの設定。"module/name": "path"を指定します。拡張子（.js）は指定しません。
     paths: {
         "jquery": "jquery",
         "bootstrap": "bootstrap",
@@ -11,7 +8,8 @@ require.config({
         "underscore" : "underscore",
         "backbone" : "backbone",
         "modernizr" : "modernizr",
-        "bindings" : "bindings"
+        "bindings" : "bindings",
+        "main" : "main"
     },
     shim: {
         "bootstrap": {
@@ -19,12 +17,16 @@ require.config({
         },
 
         "bindings" : {
-            deps : ["underscore", "jquery", "gmaps", "iscroll", "knockout", "backbone", "bootstrap"]
+            deps : ["underscore", "jquery", "gmaps", "iscroll", "knockout", "backbone", "bootstrap"],
+            exports : "appModel"
+        },
+
+        "main" : {
+            deps : ["bindings", "knockout"]
         },
 
         "backbone": {
             "deps": ["underscore", "jquery"],
-            // Exports the global window.Backbone object
             "exports": "Backbone"
         },
 
@@ -44,5 +46,8 @@ require.config({
 });
 
 require(
-    ["jquery", "knockout", "underscore", "iscroll", "gmaps", "bootstrap", "backbone", "bindings"]
+    ["knockout", "bindings", "underscore", "iscroll", "gmaps", "bootstrap", "backbone", "jquery" ],function(ko, appModel){
+        appModel.initialize();
+        ko.applyBindings(appModel);
+    }
 );

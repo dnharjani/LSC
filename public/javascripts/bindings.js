@@ -221,10 +221,6 @@ define(["./knockout", "./underscore", "./gmaps", "./backbone", "./modernizr"], f
         }
     };
 
-
-
-    var appModel = new AppModel();
-    ko.applyBindings(appModel);
-    appModel.initialize();
+    return new AppModel();
 });
 
