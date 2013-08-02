@@ -1,4 +1,4 @@
-define(["./knockout", "./underscore", "./backbone", "./modernizr", "./mapUtils"], function(ko, _, Backbone, Modernizr, MapUtils)
+define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtils"], function(ko, _, Modernizr, MapUtils, ServerUtils)
 {
     var AppModel = function(){
         var self = this;
@@ -13,17 +13,18 @@ define(["./knockout", "./underscore", "./backbone", "./modernizr", "./mapUtils"]
 
         self.initialize = function(){
             if(navigator.onLine){
-                $.getJSON('/posts')
-                    .done(function(data){
+                ServerUtils.getPosts(
+                    function(data){
                         localStorage.setItem("lsc-events", JSON.stringify(data));
                         setupPostsArray(data);
                         setupDatesList(data);
                         self.loadingScreen(false);
-                    })
-                    .fail(function(){
+                    },
+                    function(error){
                         // Error message
                         self.loadingScreen(false);
-                    })
+                    }
+                );
             }
             else{
                 var events = localStorage.getItem("lsc-events");
@@ -57,15 +58,17 @@ define(["./knockout", "./underscore", "./backbone", "./modernizr", "./mapUtils"]
             if(!item.insLoaded){
                 self.loadingScreen(true);
                 item.insLoaded = true;
-                $.getJSON('/comments/'+item.id)
-                    .done(function(data){
+
+                ServerUtils.getComments(
+                    item.id,
+                    function(data){
                         if(data[1]){
                             _.each(data[1].data.children, function(comment){
                                 // remove non-alphanumeric chars
                                 var commentStr = comment.data.body.replace(/[^a-zA-Z0-9 ]/, '').toLowerCase();
                                 var words = commentStr.split(' ');
                                 if(words.indexOf("out") !== -1){
-                                   // figure something to do with outs
+                                    // figure something to do with outs
                                 }
                                 else if(words.indexOf("in") !== -1){
                                     item.ins.push({author: comment.data.author , status: 'in'});
@@ -78,11 +81,12 @@ define(["./knockout", "./underscore", "./backbone", "./modernizr", "./mapUtils"]
                             });
                         }
                         self.loadingScreen(false);
-                    })
-                    .fail(function(){
+                    },
+                    function(error){
                         // Error message
                         self.loadingScreen(false);
-                    })
+                    }
+                );
             }
         };
 

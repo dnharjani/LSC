@@ -11,7 +11,7 @@ require.config({
         "bindings" : "bindings",
         "bindingHandlers" : "bindingHandlers",
         "mapUtils" : "mapUtils",
-        "main" : "main"
+        "serverUtils" : "serverUtils"
     },
     shim: {
         "bootstrap": {
@@ -19,17 +19,12 @@ require.config({
         },
 
         "bindings" : {
-            deps : ["underscore", "jquery", "gmaps", "iscroll", "knockout", "backbone", "bootstrap", "mapUtils", "bindingHandlers"],
+            deps : ["underscore", "jquery", "gmaps", "iscroll", "knockout", "serverUtils", "bootstrap", "mapUtils", "bindingHandlers"],
             exports : "appModel"
         },
 
         "bindingHandlers" : {
             deps : ["knockout"]
-        },
-
-        "mapUtils" : {
-            deps : ["gmaps"],
-            exports : "MapUtils"
         },
 
         "backbone": {
@@ -53,7 +48,7 @@ require.config({
 });
 
 require(
-    ["knockout", "bindings", "bindingHandlers", "underscore", "iscroll", "gmaps", "bootstrap", "backbone", "jquery", "mapUtils" ],function(ko, appModel){
+    ["knockout", "bindings", "bindingHandlers", "underscore", "iscroll", "gmaps", "bootstrap", "backbone", "jquery", "mapUtils", "serverUtils" ],function(ko, appModel){
         appModel.initialize();
         ko.applyBindings(appModel);
     }
