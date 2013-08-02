@@ -29,10 +29,10 @@ var reddit = {};
 reddit.posts = function(req, res){
     var subreddit = 'LondonSocialClub';
     redwrap.r(subreddit).limit(100).exe(function(err, data){
-        var returnedPosts = data.data.children;
+        var redditPosts = data.data.children;
 
 
-        _.each(returnedPosts, function(item){
+        _.each(redditPosts, function(item){
                                     // Find the scheduled date for the event
                                     var post = item.data,
                                         dateRegex = /\d{1,2}\/\d{1,2}\/\d{2,4}/,
@@ -64,8 +64,14 @@ reddit.posts = function(req, res){
         });
 
         //remove posts without dates
-        returnedPosts = _.reject(returnedPosts, function(item){ return item.data.scheduledDate === undefined });
-        returnedPosts = _.sortBy(returnedPosts, function(item){ return item.data.scheduledDate });
+        redditPosts = _.reject(redditPosts, function(item){ return item.data.scheduledDate === undefined });
+        redditPosts = _.sortBy(redditPosts, function(item){ return item.data.scheduledDate });
+
+        // return an array of posts
+        var returnedPosts = [];
+        _.each(redditPosts, function(item){
+            returnedPosts.push(item.data);
+        });
 
         res.json(returnedPosts);
     });

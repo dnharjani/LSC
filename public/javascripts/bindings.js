@@ -1,4 +1,4 @@
-define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtils"], function(ko, _, Modernizr, MapUtils, ServerUtils)
+define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtilsJquery"], function(ko, _, Modernizr, MapUtils, ServerUtils)
 {
     var AppModel = function(){
         var self = this;
@@ -15,7 +15,7 @@ define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtil
                 ServerUtils.getPosts(
                     function(data){
                         localStorage.setItem("lsc-events", JSON.stringify(data));
-                        setupPostsArray(data);
+                        setupPostObservables(data);
                         setupDatesList(data);
                         self.loadingScreen(false);
                     },
@@ -29,7 +29,7 @@ define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtil
                 var events = localStorage.getItem("lsc-events");
                  if(events !== undefined && events !== null){
                      var parsedEvents = JSON.parse(events);
-                     setupPostsArray(parsedEvents);
+                     setupPostObservables(parsedEvents);
                      setupDatesList(parsedEvents);
                      self.loadingScreen(false);
                  }
@@ -120,19 +120,19 @@ define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtil
             $('#map-modal').modal();
         };
 
-        var setupPostsArray = function(redditPostData){
+        var setupPostObservables = function(redditPostData){
             _.each(redditPostData, function(item){
-                item.data.showSummary = ko.observable(false);
-                item.data.ins = ko.observableArray();
-                item.data.insLoaded = false;
-                if(item.data.scheduledPlace === undefined || item.data.scheduledPlace === null ){
-                    item.data.showMapButton = ko.observable(false);
+                item.showSummary = ko.observable(false);
+                item.ins = ko.observableArray();
+                item.insLoaded = false;
+                if(item.scheduledPlace === undefined || item.scheduledPlace === null ){
+                    item.showMapButton = ko.observable(false);
                 }
                 else{
-                    item.data.showMapButton = ko.observable(true);
+                    item.showMapButton = ko.observable(true);
                 }
 
-                self.redditPosts.push(item.data);
+                self.redditPosts.push(item);
             });
 
             self.postScroll = new iScroll('posts-list-container', {useTransition:true, checkDOMChanges: true} );
@@ -149,10 +149,10 @@ define(["./knockout", "./underscore", "./modernizr", "./mapUtils", "./serverUtil
                 dayObject.year =  new Date(calendarDate).getFullYear();
                 dayObject.events = [];
                 _.each(redditPostData, function(item){
-                    var eventDate = new Date(item.data.scheduledDate);
+                    var eventDate = new Date(item.scheduledDate);
                     var calendarDateAsDate = new Date(calendarDate);
                     if(eventDate.getDate() === calendarDateAsDate.getDate() && eventDate.getFullYear() === calendarDateAsDate.getFullYear() && eventDate.getMonth() === calendarDateAsDate.getMonth()){
-                        dayObject.events.push(item.data);
+                        dayObject.events.push(item);
                     }
                 });
                 self.dateList.push(dayObject);

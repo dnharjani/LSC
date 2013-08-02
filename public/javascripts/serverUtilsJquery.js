@@ -1,4 +1,4 @@
-define(["./jquery", "./backbone"], function($, Backbone)
+define(["./jquery"], function($)
 {
     var ServerUtils = function(){
 
