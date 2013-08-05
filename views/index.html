@@ -32,7 +32,7 @@
 
         <div id="posts-list-container">
             <ul id="posts" data-bind="foreach : redditPosts">
-                <li data-bind="attr: {class : $parent.getRowClass($index), id : id}">
+                <li data-bind="attr: {class : $parent.getRowClass($index), id : postId}">
                     <a class="post" data-bind="click: $parent.toggleSummary">
                         <!--<i class="icon-play"></i>-->
                         <h4 class="post-title" data-bind="html: title"></h4>

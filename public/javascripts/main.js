@@ -50,7 +50,12 @@ require.config({
 });
 
 require(
-    ["knockout", "bindings"],function(ko, appModel){
+    ["jquery", "knockout", "bindings"],function($, ko, appModel){
+        // Debug
+        window.onerror = function(error){
+            alert(error);
+        };
+
         appModel.initialize();
         ko.applyBindings(appModel);
     }

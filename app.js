@@ -59,8 +59,7 @@ reddit.posts = function(req, res){
                                     }
 
                                     post.permalink = 'http://www.reddit.com'+post.permalink;
-
-
+                                    post.postId = post.id;
         });
 
         //remove posts without dates

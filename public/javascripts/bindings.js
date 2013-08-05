@@ -93,6 +93,11 @@ define(["knockout", "underscore", "modernizr", "mapUtils", "serverUtilsJquery"],
             return (index() % 2 === 0 ? 'post-container even' : 'post-container odd')
         };
 
+        self.getItemId = function(item){
+            console.log(item);
+            return item.id;
+        };
+
         self.showEventsOnDay = function(item, event){
             self.postScroll.refresh();
             if(item.events.length > 0){
